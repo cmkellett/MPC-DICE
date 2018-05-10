@@ -53,7 +53,7 @@ Params = assign_parameters_v2016;
 Data.N = Params.N;  % Prediction horizon set in above script file
 Data.step = 1;      % 1 == 1-step MPC strategy
 Data.t0 = 1;        % initial simulation time; needs to be >=1
-Data.tf = 10;       % final simulation time; set tf = 1 to solve single OCP
+Data.tf = 20;       % final simulation time; set tf = 1 to solve single OCP
 Data.nx = 1+6+9+1;  % total # of states: time; 6 "endogenous" states; 
                     %   9 auxilliary states including 5 "exogenous" states,
                     %   consumption, emissions, and shifted inputs;
@@ -297,26 +297,49 @@ save(file_id,'SaveData');
 
 %% Sample Plotting
 
-figure(1)
-stem(years(1:length(years)-1),SCC), axis([Params.BaseYear end_year 0 max(SCC)+100])
-title('Social Cost of Carbon')
-xlabel('Years')
+if Data.tf == 1
+    figure(1)
+    stem(years(1:length(years)),SCC), axis([Params.BaseYear end_year 0 max(SCC)+100])
+    title('Social Cost of Carbon')
+    xlabel('Years')
 
-figure(2)
-subplot(2,1,1), stem(years(1:length(years)-1),miu), axis([Params.BaseYear end_year 0 1.2])
-ylabel('miu')
-subplot(2,1,2), stem(years(1:length(years)-1),Savings_Rate), axis([Params.BaseYear end_year 0 0.5])
-ylabel('Savings Rate')
+    figure(2)
+    subplot(2,1,1), stem(years(1:length(years)),miu), axis([Params.BaseYear end_year 0 1.2])
+    ylabel('miu')
+    subplot(2,1,2), stem(years(1:length(years)),Savings_Rate), axis([Params.BaseYear end_year 0 0.5])
+    ylabel('Savings Rate')
 
-figure(3)
-stem(years(1:length(years)-1),Per_Cap_Consumption), axis([Params.BaseYear end_year 0 max(Per_Cap_Consumption)+5])
-title('Per Capita Consumption')
-xlabel('Years')
+    figure(3)
+    stem(years(1:length(years)),Per_Cap_Consumption), axis([Params.BaseYear end_year 0 max(Per_Cap_Consumption)+5])
+    title('Per Capita Consumption')
+    xlabel('Years')
 
-figure(4)
-stem(years,TATM)
-title('Atmospheric Temperature Anomaly')
-xlabel('Years')
+    figure(4)
+    stem(years,TATM)
+    title('Atmospheric Temperature Anomaly')
+    xlabel('Years')
+else
+    figure(1)
+    stem(years(1:length(years)-1),SCC), axis([Params.BaseYear end_year 0 max(SCC)+100])
+    title('Social Cost of Carbon')
+    xlabel('Years')
+
+    figure(2)
+    subplot(2,1,1), stem(years(1:length(years)-1),miu), axis([Params.BaseYear end_year 0 1.2])
+    ylabel('miu')
+    subplot(2,1,2), stem(years(1:length(years)-1),Savings_Rate), axis([Params.BaseYear end_year 0 0.5])
+    ylabel('Savings Rate')
+
+    figure(3)
+    stem(years(1:length(years)-1),Per_Cap_Consumption), axis([Params.BaseYear end_year 0 max(Per_Cap_Consumption)+5])
+    title('Per Capita Consumption')
+    xlabel('Years')
+
+    figure(4)
+    stem(years,TATM)
+    title('Atmospheric Temperature Anomaly')
+    xlabel('Years')
+end
 
 % Tidy Workspace.  Comment out the following two commands to maintain all
 %   variables in workspace.
