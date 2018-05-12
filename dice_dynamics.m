@@ -180,7 +180,7 @@ E_NEXT = 5*(sigma_NEXT*(1-mu_NEXT)*Gross_Economic_Output_NEXT +...
 C_NEXT = 5*(1-s_NEXT) * Net_Economic_Output_NEXT;
 
 % ---------------- Objective ----------------------
-J_NEXT = J - L*(((1000/L*C)^(1-alpha) - 1)/((1-alpha))-1)/(1+rho)^(5*(i-1));          
+J_NEXT = J - L*(((1000/L*C)^(1-alpha) - 1)/((1-alpha)))/(1+rho)^(5*(i-1));          
 
 % numerical scaling
 M_NEXT = M_NEXT/sc.M;
